@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html  xmlns:th = "wwww.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cars Details</title>
+</head>
+<body>
+	<h2> Display Car Details</h2>
+	<br/>
+	<table>
+		<tr>
+			<th> Car model</th>
+			<th> Car make</th>
+			<th> Car year</th>
+			<th> Trany</th>
+			<th>City Mileage Per Gallon</th>
+			<th>Highway Mileage Per Gallon</th>
+			<th>Car Class</th>
+			<th>Fuel Type</th>
+			<th>Rental Price</th>
+		</tr>
+		<tr th:each="car :${car}">
+			<td style="display:none;" th:name = "id" th:text="${car.id}"></td>
+			<td th:text = "${car.model}"></td>
+			<td th:text = "${car.make}" th:name = "make" ></td>
+			<td th:text = "${car.year}" th:name = "year"></td>
+			<td th:text = "${car.trany}" th:name = "trany"></td>
+			<td th:text = "${car.cityMPG}" th:name = "cityMPG"></td>
+			<td th:text = "${car.highwayMPG}" th:name = "highwayMPG"></td>
+			<td th:text = "${car.carClass}" th:name = "carClass"></td>
+			<td th:text = "${car.rentalPrice}" th:name = "rentalPrice"></td>
+		</tr>
+	</table>
+	<button onclick="self.close()">Close</button>
+</body>
+</html>
