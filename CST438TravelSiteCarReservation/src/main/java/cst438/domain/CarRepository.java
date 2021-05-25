@@ -13,5 +13,8 @@ public interface CarRepository extends JpaRepository<Car, Integer>{
 	List<Car> randomFive();
 	
 	List<Car> findById(int id);
+	
+	@Query("SELECT c FROM Car c WHERE c.city LIKE %?1% AND c.quantity > 0")
+	List<Car> findByCity(String city);
 
 }

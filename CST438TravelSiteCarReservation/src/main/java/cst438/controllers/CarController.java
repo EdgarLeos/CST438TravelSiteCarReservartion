@@ -20,6 +20,31 @@ public class CarController {
 	@Autowired
 	CarRepository carRepository;
 	
+	
+	@GetMapping("/carrental")
+	public String displayCities(Model model) {
+		Car car = new Car();
+		model.addAttribute("car", car);
+		return "car_rental";
+	}
+	
+	
+	@PostMapping("/carrental/carsByCity/{city}")
+	public String displayCarsByCity(@RequestParam("city")String city, Model model) {
+		System.out.println(city);
+		//List<Car> randCars = carRepository.randomFive();
+		/*for(Car car:cars) {
+			System.out.println(car.getModel());
+		}*/
+		List<Car> cars = carRepository.findByCity(city);
+		for(Car car:cars) {
+			System.out.println(car.getId() + car.getModel());
+		}
+		model.addAttribute("car", cars);
+		return "car_by_city";
+		
+	}
+	
 	@GetMapping("/carReservation")
 	public String getAllCars(Model model) {
 		List<Car> cars = carRepository.findByModel();
