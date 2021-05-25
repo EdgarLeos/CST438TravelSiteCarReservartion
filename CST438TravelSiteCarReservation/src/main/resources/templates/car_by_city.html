@@ -6,23 +6,26 @@
 <script type = "text/javascript" th:src ="@{/js/cssandjs/actions.js}"></script>
 </head>
 <body>
-	<h2> Here are the cars avialable for the city selected</h2>
+	<h2>Here are the cars avialable for the city selected</h2>
+	<h3>Click on each for more details</h3>
 	<br/>
 	<table id ="carTable">
 		<tr>
 			<th> Car model</th>
 			<th> Car make</th>
 			<th> Car year</th>
-			<th>Rental Price<button th:onclick = "sortByModel()">Sort By Price</button></th>
+			<th>Rental Price<button th:onclick = "sortByPrice()">Sort By Price</button></th>
+			<th></th>
 		</tr>
-		<tr th:each="car :${car}">
-			<td style="display:none;" th:name = "id" th:text="${car.id}"></td>
-			<td ><a th:href ="@{'/randomFiveCars/' + ${car.id}}" target= "_blank" th:name = "model" th:text = "${car.model}"/></a></td>
-			<td th:text = "${car.make}" th:name = "make" ></td>
-			<td th:text = "${car.year}" th:name = "year"></td>
-			<td th:text = "${car.rentalPrice}" th:name = "rentalPrice"></td>
-		</tr>
-	
+		
+			<tr th:each="car :${car}">
+				<td style="display:none;" th:name = "id" th:text="${car.id}"></td>
+				<td ><a th:href ="@{'/carrental/carsByCity/details/' + ${car.id}}" target= "_blank" th:name = "model" th:text = "${car.model}"/></a></td>
+				<td th:text = "${car.make}" th:name = "make" ></td>
+				<td th:text = "${car.year}" th:name = "year"></td>
+				<td th:text = "${car.rentalPrice}" th:name = "rentalPrice"></td>
+				<td><form action = "#" th:action = "@{/carrental/carsByCity/reserved}" th:object ="${car}" method = "post"><button type = "submit" th:value = "${car.id}" th:name = "id" th:text = "@{Reserve Me Now}"></button></form>
+			</tr>	
 	</table>
 </body>
 </html>

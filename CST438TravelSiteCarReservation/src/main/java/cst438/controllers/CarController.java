@@ -29,7 +29,7 @@ public class CarController {
 	}
 	
 	
-	@PostMapping("/carrental/carsByCity/{city}")
+	@PostMapping("/carrental/carsByCity")
 	public String displayCarsByCity(@RequestParam("city")String city, Model model) {
 		System.out.println(city);
 		//List<Car> randCars = carRepository.randomFive();
@@ -45,7 +45,42 @@ public class CarController {
 		
 	}
 	
-	@GetMapping("/carReservation")
+	@PostMapping("/carrental/carsByCity/reserved")
+	public String carReserved(@RequestParam("id") int id, Model model) {
+		System.out.println(id);
+		//List<Car> randCars = carRepository.randomFive();
+		/*for(Car car:cars) {
+			System.out.println(car.getModel());
+		}*/
+		List<Car> cars = carRepository.findById(id);
+		for(Car car:cars) {
+			System.out.println(car.getId() + car.getModel());
+		}
+		Car car = cars.get(0);
+		model.addAttribute("car", car);
+		
+		return "car_info";
+	}
+	
+	
+	@GetMapping("/carrental/carsByCity/details/{id}")
+	public String displayCarDetails(@PathVariable("id") int id, Model model) {
+		System.out.println(id);
+		//List<Car> randCars = carRepository.randomFive();
+		/*for(Car car:cars) {
+			System.out.println(car.getModel());
+		}*/
+		List<Car> cars = carRepository.findById(id);
+		for(Car car:cars) {
+			System.out.println(car.getId() + car.getModel());
+		}
+		Car car = cars.get(0);
+		model.addAttribute("car", car);
+		
+		return "car_info";
+		
+	}
+	@GetMapping("/allCars")
 	public String getAllCars(Model model) {
 		List<Car> cars = carRepository.findByModel();
 		/*for(Car car:cars) {
@@ -69,23 +104,4 @@ public class CarController {
 		return "cars_info_five";
 		
 	}
-	
-	@GetMapping("/randomFiveCars/{id}")
-	public String displayCarDetails(@PathVariable("id") int id, Model model) {
-		System.out.println(id);
-		//List<Car> randCars = carRepository.randomFive();
-		/*for(Car car:cars) {
-			System.out.println(car.getModel());
-		}*/
-		List<Car> cars = carRepository.findById(id);
-		for(Car car:cars) {
-			System.out.println(car.getId() + car.getModel());
-		}
-		Car car = cars.get(0);
-		model.addAttribute("car", car);
-		
-		return "car_info";
-		
-	}
-
 }

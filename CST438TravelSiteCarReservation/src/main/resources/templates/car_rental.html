@@ -8,7 +8,7 @@
 	<h1> Welcome to Car Rental!</h1>
 	<h2>Please make a selection for your destination!</h2>
 	<br/>
-	<form action ="#" th:action="@{/carrental/carsByCity/{city}}" th:object="${car}" method = "post">
+	<form action ="#" th:action="@{/carrental/carsByCity}" th:object="${car}" method = "post">
 	  <select th:id="city" th:name="cars" th:field = "*{city}">
 	    <option value="New York">New York, NY</option>
 	    <option value="Los Angeles">Los Angeles, LA</option>
@@ -19,7 +19,7 @@
 	    <option value="San Antoion">San Antonio, TX</option>
 	    <option value="San Diego">San Diego, CA</option>
 	    <option value="Dallas">Dallas, TX</option>
-	    <option value="San Jose">Sam Jose, CA</option>
+	    <option value="San Jose">San Jose, CA</option>
   	</select>
   	<input type="submit">
 	
