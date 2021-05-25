@@ -53,13 +53,21 @@ public class CarController {
 			System.out.println(car.getModel());
 		}*/
 		List<Car> cars = carRepository.findById(id);
-		for(Car car:cars) {
-			System.out.println(car.getId() + car.getModel());
-		}
 		Car car = cars.get(0);
+		double countyTax = 0.02;
+		double govFee = .1;
+		double salesTax = 0.09;
+		double plusCountyTax = (countyTax * car.getRentalPrice());
+		double plusGovFee= (govFee * car.getRentalPrice());
+		double plusSalesTax = (salesTax * car.getRentalPrice());
+		double total = plusCountyTax + plusGovFee + plusSalesTax;
 		model.addAttribute("car", car);
+		model.addAttribute("plusCountyTax", plusCountyTax);
+		model.addAttribute("plusGovFee", plusGovFee);
+		model.addAttribute("plusSalesTax", plusSalesTax);
+		model.addAttribute("total", total);
 		
-		return "car_info";
+		return "car_checkout";
 	}
 	
 	
