@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import cst438.domain.Car;
 import cst438.domain.CarRepository;
+import cst438.domain.ReservationRepository;
+import cst438.domain.Reservation;
 
 @Controller
 public class CarController {
@@ -20,6 +22,8 @@ public class CarController {
 	@Autowired
 	CarRepository carRepository;
 	
+	@Autowired
+	ReservationRepository reservationRepository;
 	
 	@GetMapping("/carrental")
 	public String displayCities(Model model) {
@@ -54,6 +58,8 @@ public class CarController {
 		}*/
 		List<Car> cars = carRepository.findById(id);
 		Car car = cars.get(0);
+		
+		Reservation reservation = new Reservation();
 		double countyTax = 0.02;
 		double govFee = .1;
 		double salesTax = 0.09;
@@ -66,6 +72,7 @@ public class CarController {
 		model.addAttribute("plusGovFee", plusGovFee);
 		model.addAttribute("plusSalesTax", plusSalesTax);
 		model.addAttribute("total", total);
+		model.addAttribute("reservation" , reservation);
 		
 		return "car_checkout";
 	}
