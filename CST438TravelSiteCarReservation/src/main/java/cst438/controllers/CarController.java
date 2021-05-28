@@ -60,7 +60,7 @@ public class CarController {
 		double plusCountyTax = (countyTax * car.getRentalPrice());
 		double plusGovFee= (govFee * car.getRentalPrice());
 		double plusSalesTax = (salesTax * car.getRentalPrice());
-		double total = plusCountyTax + plusGovFee + plusSalesTax;
+		double total = plusCountyTax + plusGovFee + plusSalesTax + car.getRentalPrice();
 		model.addAttribute("car", car);
 		model.addAttribute("plusCountyTax", plusCountyTax);
 		model.addAttribute("plusGovFee", plusGovFee);

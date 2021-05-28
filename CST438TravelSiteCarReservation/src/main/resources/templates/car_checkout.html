@@ -21,6 +21,7 @@
 			<th>Fuel Type</th>
 			<th>City</th>
 			<th>State</th>
+			<th>Preview</th>
 		</tr>
 		<tr th:each="car :${car}">
 			<td style="display:none;" th:name = "id" th:text="${car.id}"></td>
@@ -34,12 +35,13 @@
 			<td th:text = "${car.fuelType}" th:name = "fuelType"></td>
 			<td th:text = "${car.city}" th:name = "city"></td>
 			<td th:text = "${car.state}" th:name = "state"></td>
+			<td ><img th:src="@{'/images/' +${car.image}}"> </td>
 		</tr>
 	</table>
 	<table id = "checkout">
 		<tr>
 			<th>SubTotal:</th>
-			<td th:text = "${car.rentalPrice}" th:name = "rentalPrice"></td>
+			<td th:text = "$+'${car.rentalPrice}'" th:name = "rentalPrice"></td>
 		</tr>
 		<tr>
 			<th>County Tax (%2)</th>
