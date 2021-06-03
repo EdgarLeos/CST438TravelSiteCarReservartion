@@ -22,7 +22,15 @@
 	    <option value="San Jose">San Jose, CA</option>
   	</select>
   	<input type="submit">
-	
+	</form>
+	<br/>
+	<h2>To check your current reservation input your username and reservation number</h2>
+	<form action = "#" th:action = "@{/carrental/checkReservation}" th:object = "${reservation}" method = "post">
+		Username: <input type = "text" th:field="*{email}" />
+			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+		Reservation #: <input type = "text" th:field="*{id}" />
+			<span th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></span>
+		<input type = "submit" value="Check Status" />	
 	</form>
 </body>
 </html>

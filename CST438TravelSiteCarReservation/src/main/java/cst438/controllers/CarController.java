@@ -27,7 +27,9 @@ public class CarController {
 	
 	@GetMapping("/carrental")
 	public String displayCities(Model model) {
+		Reservation resevation = new Reservation();
 		Car car = new Car();
+		model.addAttribute("reservation", resevation);
 		model.addAttribute("car", car);
 		return "car_rental";
 	}

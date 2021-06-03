@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface CarRepository extends JpaRepository<Car, Integer>{
 	
+	
+	
 	@Query("SELECT c FROM Car c ORDER BY model")
 	List<Car> findByModel();
 	
@@ -25,5 +27,9 @@ public interface CarRepository extends JpaRepository<Car, Integer>{
 	@Modifying
 	@Query("UPDATE Car c SET c.quantity = c.quantity - 1 WHERE c.id = ?1")
 	void reserveCar(int id);
-
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE Car c SET c.quantity = c.quantity + 1 WHERE c.id = ?1")
+	void cancelCar(int id);
 }

@@ -3,7 +3,9 @@ package cst438.domain;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
@@ -13,5 +15,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	
 	List<Reservation>findById(int id);
 	
+	List<Reservation>findByEmail(String email);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE Reservation r WHERE r.id = ?1")
+	void cancelReservation(int id);
 
 }
