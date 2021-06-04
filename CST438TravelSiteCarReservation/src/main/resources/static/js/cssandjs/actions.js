@@ -1,4 +1,4 @@
-function sortByModel(){
+function sortByPrice(){
 	console.log("ButtonPressed");
 	var table, rows, switching, i, x, y, shouldSwitch;
 	table = document.getElementById("carTable");

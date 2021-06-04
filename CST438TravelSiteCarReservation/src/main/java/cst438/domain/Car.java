@@ -19,11 +19,15 @@ public class Car {
 	private String carClass;
 	private String fuelType;
 	private double rentalPrice;
+	private String state;
+	private String city;
+	private int quantity;
+	private String image;
 	
 	public Car() {}
 
 	public Car(int id, String model, String make, int year, String trany, double cityMPG, double highwayMPG,
-			String carClass, String fuelType, double rentalPrice) {
+			String carClass, String fuelType, double rentalPrice, String state, String city, int quantity, String image) {
 		super();
 		this.id = id;
 		this.model = model;
@@ -35,6 +39,10 @@ public class Car {
 		this.carClass = carClass;
 		this.fuelType = fuelType;
 		this.rentalPrice = rentalPrice;
+		this.state = state;
+		this.city = city;
+		this.quantity = quantity;
+		this.image = image;
 	}
 
 	public int getId() {
@@ -117,6 +125,37 @@ public class Car {
 		this.rentalPrice = rentalPrice;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	
 	
