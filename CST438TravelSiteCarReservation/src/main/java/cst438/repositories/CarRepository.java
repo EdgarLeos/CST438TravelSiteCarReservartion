@@ -1,4 +1,4 @@
-package cst438.domain;
+package cst438.repositories;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import cst438.domain.Car;
 
 public interface CarRepository extends JpaRepository<Car, Integer>{
 	
@@ -19,7 +21,7 @@ public interface CarRepository extends JpaRepository<Car, Integer>{
 	
 	List<Car> findById(int id);
 	
-	@Query("SELECT c FROM Car c WHERE c.city LIKE %?1% AND c.quantity > 0")
+	@Query(nativeQuery = true, value = "SELECT * FROM car  WHERE car.city LIKE ?1 AND car.quantity > 0")
 	List<Car> findByCity(String city);
 	
 

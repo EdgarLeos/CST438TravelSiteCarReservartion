@@ -9,6 +9,9 @@
 	<h2>Please make a selection for your destination!</h2>
 	<br/>
 	<form action ="#" th:action="@{/carrental/carsByCity}" th:object="${car}" method = "post">
+	<label for="start">Start date:</label>
+	<input type="date" th:id="start" th:name="start"  th:value="2021-01-01" min="2021-01-01" max="2021-12-31">
+	<input type="date" th:id="end" th:name="end"  th:value="2021-01-01" min="2021-01-01" max="2021-12-31">
 	  <select th:id="city" th:name="cars" th:field = "*{city}">
 	    <option value="New York">New York, NY</option>
 	    <option value="Los Angeles">Los Angeles, LA</option>

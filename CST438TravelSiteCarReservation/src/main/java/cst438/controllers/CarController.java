@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
-import cst438.domain.Car;
-import cst438.domain.CarRepository;
-import cst438.domain.ReservationRepository;
-import cst438.domain.Reservation;
+import cst438.domain.*;
+import cst438.repositories.*;
+
 
 @Controller
 public class CarController {
@@ -25,27 +24,36 @@ public class CarController {
 	@Autowired
 	ReservationRepository reservationRepository;
 	
+	@Autowired
+	CalendarRepository calendarRepository;
+	
 	@GetMapping("/carrental")
 	public String displayCities(Model model) {
 		Reservation resevation = new Reservation();
 		Car car = new Car();
+		Calendar calendar = new Calendar();
 		model.addAttribute("reservation", resevation);
 		model.addAttribute("car", car);
+		model.addAttribute("calendar", calendar);
 		return "car_rental";
 	}
 	
 	
 	@PostMapping("/carrental/carsByCity")
-	public String displayCarsByCity(@RequestParam("city")String city, Model model) {
+	public String displayCarsByCity(@RequestParam("city")String city,@RequestParam("start")String start,@RequestParam("end")String end, Model model) {
 		System.out.println(city);
+		System.out.println(start);
+		System.out.println(end);
 		//List<Car> randCars = carRepository.randomFive();
 		/*for(Car car:cars) {
 			System.out.println(car.getModel());
 		}*/
+		/*
+		 * 
+		 * */
 		List<Car> cars = carRepository.findByCity(city);
-		for(Car car:cars) {
-			System.out.println(car.getId() + car.getModel());
-		}
+		//System.out.println(Integer.toString(calendarRepository.findCarAvilable( date,4).get(0).getCar_id()));
+		
 		model.addAttribute("car", cars);
 		return "car_by_city";
 		

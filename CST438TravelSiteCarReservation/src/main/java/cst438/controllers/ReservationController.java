@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
-import cst438.domain.Car;
-import cst438.domain.CarRepository;
-import cst438.domain.Reservation;
-import cst438.domain.ReservationRepository;
+import cst438.domain.*;
+import cst438.repositories.*;
 
 @Controller
 public class ReservationController {
@@ -26,6 +24,8 @@ public class ReservationController {
 	@Autowired
 	CarRepository carRepository;
 	
+	@Autowired
+	CalendarRepository calendarRepository;
 	
 	@GetMapping("/allReservations")
 	public String getAllReservations(Model model) {
@@ -44,6 +44,7 @@ public class ReservationController {
 		}
 		reservationRepository.save(reservation);
 		carRepository.reserveCar(reservation.getCar_id());
+		calendarRepository.addReservationToCalendar(reservation.getCar_id(),"2020-07-06", reservation.getId());
 		model.addAttribute("reservation", reservation);
 		return "reservation_confirmed";
 	}

@@ -11,6 +11,7 @@ import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import cst438.domain.*;
+import cst438.repositories.CarRepository;
 
 @Service
 public class CarService {
