@@ -1,5 +1,9 @@
 package cst438.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -40,10 +44,10 @@ public class CarController {
 	
 	
 	@PostMapping("/carrental/carsByCity")
-	public String displayCarsByCity(@RequestParam("city")String city,@RequestParam("start")String start,@RequestParam("end")String end, Model model) {
-		System.out.println(city);
-		System.out.println(start);
-		System.out.println(end);
+	public String displayCarsByCity(@RequestParam("city")String city,@RequestParam("start")String start,@RequestParam("end")String end, Model model) throws ParseException {
+//		System.out.println(city);
+//		System.out.println(start);
+//		System.out.println(end);
 		//List<Car> randCars = carRepository.randomFive();
 		/*for(Car car:cars) {
 			System.out.println(car.getModel());
@@ -53,14 +57,50 @@ public class CarController {
 		 * */
 		List<Car> cars = carRepository.findByCity(city);
 		//System.out.println(Integer.toString(calendarRepository.findCarAvilable( date,4).get(0).getCar_id()));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date date1 = format.parse(start);
+		Date date2 = format.parse(end);
 		
-		model.addAttribute("car", cars);
+		String date_start;
+		String date_end;
+		if (!(date1.compareTo(date2) <= 0)) {
+			date_start = end;
+			date_end = start;
+		}else {
+			date_start = start;
+			date_end = end;
+		}
+		for(Car car:cars) {
+			System.out.println(car.getId());
+		}
+		List<Car> carsAv = new ArrayList<>();
+		for(Car car:cars) {
+			List<Reservation> reservations = reservationRepository.findDateRanges(start, end, car.getId());
+			if(reservations.size() >= car.getQuantity()) {
+				System.out.println("car will be removed from list");
+				System.out.println(car.getId());
+				System.out.println("car removed from list");
+			}else {
+				carsAv.add(car);
+			}
+		}
+		
+		for(Car car:carsAv) {
+			System.out.println(car.getId());
+		}
+//		for(Reservation reservation: reservations) {
+//			System.out.println(reservation.getCar_id());
+//		}
+		model.addAttribute("car", carsAv);
+		model.addAttribute("date_start", date_start);
+		model.addAttribute("date_end", date_end);
 		return "car_by_city";
 		
 	}
 	
 	@PostMapping("/carrental/carsByCity/reserved")
-	public String carReserved(@RequestParam("id") int id, Model model) {
+	public String carReserved(@RequestParam("id") int id,@RequestParam("date_start") String date_start,@RequestParam("date_end") String date_end, Model model) {
 		System.out.println(id);
 		//List<Car> randCars = carRepository.randomFive();
 		/*for(Car car:cars) {
@@ -70,6 +110,8 @@ public class CarController {
 		Car car = cars.get(0);
 		
 		Reservation reservation = new Reservation();
+		reservation.setDate_start(date_start);
+		reservation.setDate_end(date_end);
 		double countyTax = 0.02;
 		double govFee = .1;
 		double salesTax = 0.09;
@@ -89,7 +131,7 @@ public class CarController {
 	
 	
 	@GetMapping("/carrental/carsByCity/details/{id}")
-	public String displayCarDetails(@PathVariable("id") int id, Model model) {
+	public String displayCarDetails(@PathVariable("id") int id,  Model model) {
 		System.out.println(id);
 		//List<Car> randCars = carRepository.randomFive();
 		/*for(Car car:cars) {

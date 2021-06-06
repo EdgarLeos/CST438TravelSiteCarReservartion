@@ -42,9 +42,10 @@ public class ReservationController {
 			System.out.println("Error!!!!");
 			return "car_checkout";
 		}
+		System.out.println(reservation.getDate_start());
 		reservationRepository.save(reservation);
-		carRepository.reserveCar(reservation.getCar_id());
-		calendarRepository.addReservationToCalendar(reservation.getCar_id(),"2020-07-06", reservation.getId());
+		//carRepository.reserveCar(reservation.getCar_id());
+		//calendarRepository.addReservationToCalendar(reservation.getCar_id(),"2020-07-06", reservation.getId());
 		model.addAttribute("reservation", reservation);
 		return "reservation_confirmed";
 	}
@@ -92,7 +93,7 @@ public class ReservationController {
 	public String deleteReservation(@PathVariable("id") int id, Model model) {
 		List<Reservation> reservations = reservationRepository.findById(id);
 		Reservation reservation = reservations.get(0);
-		carRepository.cancelCar(reservation.getCar_id());
+		//carRepository.cancelCar(reservation.getCar_id());
 		reservationRepository.cancelReservation(id);
 		return "reservation_deleted";
 	}

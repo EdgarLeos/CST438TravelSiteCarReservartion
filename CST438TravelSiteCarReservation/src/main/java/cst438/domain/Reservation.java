@@ -21,13 +21,19 @@ public class Reservation {
 	
 	private int car_id;
 	
+	private String date_start;
+	private String date_end;
+	
 	public Reservation() {}
 
-	public Reservation(int id, String email, int car_id) {
+	public Reservation(int id, @NotNull @Size(min = 3, max = 45) String email, int car_id, String date_start,
+			String date_end) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.car_id = car_id;
+		this.date_start = date_start;
+		this.date_end = date_end;
 	}
 
 	public int getId() {
@@ -53,7 +59,24 @@ public class Reservation {
 	public void setCar_id(int car_id) {
 		this.car_id = car_id;
 	}
-	
+
+	public String getDate_start() {
+		return date_start;
+	}
+
+	public void setDate_start(String date_start) {
+		this.date_start = date_start;
+	}
+
+	public String getDate_end() {
+		return date_end;
+	}
+
+	public void setDate_end(String date_end) {
+		this.date_end = date_end;
+	}
+
+
 	
 
 }

@@ -18,7 +18,7 @@ public class CarService {
 	
 	@Autowired
 	private CarRepository carRepository;
-	
+	/*
 	public CarInfo getCarInfo(int id) {
 		List<Car> cars = carRepository.findById(id);
 		Car car = cars.get(0);
@@ -26,6 +26,6 @@ public class CarService {
 				car.getMake(), car.getYear(),car.getTrany(),car.getCityMPG(),
 				car.getHighwayMPG(), car.getCarClass(),car.getFuelType(),
 				car.getRentalPrice(), car.getState(), car.getCity(), car.getQuantity(), 0.02, .1, 0.09);
-	}
+	}*/
 
 }

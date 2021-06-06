@@ -19,6 +19,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	
 	List<Reservation>findByEmail(String email);
 	
+	@Query(nativeQuery = true, value = "SELECT * FROM reservations WHERE (:date_start <= date_end) and (:date_end >= date_start) AND car_id = :id")
+	List<Reservation>findDateRanges(String date_start, String date_end, int id);
+	
 	@Transactional
 	@Modifying
 	@Query("DELETE Reservation r WHERE r.id = ?1")
