@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import cst438.domain.Car;
-import cst438.domain.CarRepository;
+import cst438.repositories.CarRepository;
 
 @Controller
 public class CarController {
