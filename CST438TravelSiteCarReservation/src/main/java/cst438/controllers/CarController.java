@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import cst438.domain.*;
 import cst438.repositories.*;
+import cst438.services.*;
+
 
 
 @Controller
@@ -29,16 +31,15 @@ public class CarController {
 	ReservationRepository reservationRepository;
 	
 	@Autowired
-	CalendarRepository calendarRepository;
+	CarService CarService;
+	
 	
 	@GetMapping("/carrental")
 	public String displayCities(Model model) {
 		Reservation resevation = new Reservation();
 		Car car = new Car();
-		Calendar calendar = new Calendar();
 		model.addAttribute("reservation", resevation);
 		model.addAttribute("car", car);
-		model.addAttribute("calendar", calendar);
 		return "car_rental";
 	}
 	
@@ -55,7 +56,7 @@ public class CarController {
 		/*
 		 * 
 		 * */
-		List<Car> cars = carRepository.findByCity(city);
+		//List<Car> cars = carRepository.findByCity(city);
 		//System.out.println(Integer.toString(calendarRepository.findCarAvilable( date,4).get(0).getCar_id()));
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -71,24 +72,26 @@ public class CarController {
 			date_start = start;
 			date_end = end;
 		}
-		for(Car car:cars) {
-			System.out.println(car.getId());
-		}
-		List<Car> carsAv = new ArrayList<>();
-		for(Car car:cars) {
-			List<Reservation> reservations = reservationRepository.findDateRanges(start, end, car.getId());
-			if(reservations.size() >= car.getQuantity()) {
-				System.out.println("car will be removed from list");
-				System.out.println(car.getId());
-				System.out.println("car removed from list");
-			}else {
-				carsAv.add(car);
-			}
-		}
 		
-		for(Car car:carsAv) {
-			System.out.println(car.getId());
-		}
+		List<CarInfo>carsAv = CarService.getCarAvList(city, date_start, date_end);
+//		for(Car car:cars) {
+//			System.out.println(car.getId());
+//		}
+//		List<Car> carsAv = new ArrayList<>();
+//		for(Car car:cars) {
+//			List<Reservation> reservations = reservationRepository.findDateRanges(start, end, car.getId());
+//			if(reservations.size() >= car.getQuantity()) {
+//				System.out.println("car will be removed from list");
+//				System.out.println(car.getId());
+//				System.out.println("car removed from list");
+//			}else {
+//				carsAv.add(car);
+//			}
+//		}
+//		
+//		for(Car car:carsAv) {
+//			System.out.println(car.getId());
+//		}
 //		for(Reservation reservation: reservations) {
 //			System.out.println(reservation.getCar_id());
 //		}
@@ -106,24 +109,19 @@ public class CarController {
 		/*for(Car car:cars) {
 			System.out.println(car.getModel());
 		}*/
-		List<Car> cars = carRepository.findById(id);
-		Car car = cars.get(0);
-		
+		CarInfo car = CarService.getCarInfo(id);
 		Reservation reservation = new Reservation();
 		reservation.setDate_start(date_start);
 		reservation.setDate_end(date_end);
-		double countyTax = 0.02;
-		double govFee = .1;
-		double salesTax = 0.09;
-		double plusCountyTax = (countyTax * car.getRentalPrice());
-		double plusGovFee= (govFee * car.getRentalPrice());
-		double plusSalesTax = (salesTax * car.getRentalPrice());
-		double total = plusCountyTax + plusGovFee + plusSalesTax + car.getRentalPrice();
+//		double countyTax = 0.02;
+//		double govFee = .1;
+//		double salesTax = 0.09;
+//		double plusCountyTax = (countyTax * car.getRentalPrice());
+//		double plusGovFee= (govFee * car.getRentalPrice());
+//		double plusSalesTax = (salesTax * car.getRentalPrice());
+//		double total = plusCountyTax + plusGovFee + plusSalesTax + car.getRentalPrice();
+		
 		model.addAttribute("car", car);
-		model.addAttribute("plusCountyTax", plusCountyTax);
-		model.addAttribute("plusGovFee", plusGovFee);
-		model.addAttribute("plusSalesTax", plusSalesTax);
-		model.addAttribute("total", total);
 		model.addAttribute("reservation" , reservation);
 		
 		return "car_checkout";

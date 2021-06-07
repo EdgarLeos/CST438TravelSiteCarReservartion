@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import cst438.domain.*;
 import cst438.repositories.*;
+import cst438.services.CarService;
 
 @Controller
 public class ReservationController {
@@ -25,7 +26,7 @@ public class ReservationController {
 	CarRepository carRepository;
 	
 	@Autowired
-	CalendarRepository calendarRepository;
+	CarService CarService;
 	
 	@GetMapping("/allReservations")
 	public String getAllReservations(Model model) {
@@ -67,24 +68,24 @@ public class ReservationController {
 
 		if(!(reservation1.getEmail().equals(email)))
 				return "wrong_Credentials";
-			
-		List<Car> cars = carRepository.findById(reservation1.getCar_id());
-		Car car = cars.get(0);
-
-		
-		double countyTax = 0.02;
-		double govFee = .1;
-		double salesTax = 0.09;
-		double plusCountyTax = (countyTax * car.getRentalPrice());
-		double plusGovFee= (govFee * car.getRentalPrice());
-		double plusSalesTax = (salesTax * car.getRentalPrice());
-		double total = plusCountyTax + plusGovFee + plusSalesTax + car.getRentalPrice();
+		CarInfo car = CarService.getCarInfo(id);
+//		List<Car> cars = carRepository.findById(reservation1.getCar_id());
+//		Car car = cars.get(0);
+//
+//		
+//		double countyTax = 0.02;
+//		double govFee = .1;
+//		double salesTax = 0.09;
+//		double plusCountyTax = (countyTax * car.getRentalPrice());
+//		double plusGovFee= (govFee * car.getRentalPrice());
+//		double plusSalesTax = (salesTax * car.getRentalPrice());
+//		double total = plusCountyTax + plusGovFee + plusSalesTax + car.getRentalPrice();
 		
 		model.addAttribute("car", car);
-		model.addAttribute("plusCountyTax", plusCountyTax);
-		model.addAttribute("plusGovFee", plusGovFee);
-		model.addAttribute("plusSalesTax", plusSalesTax);
-		model.addAttribute("total", total);
+//		model.addAttribute("plusCountyTax", plusCountyTax);
+//		model.addAttribute("plusGovFee", plusGovFee);
+//		model.addAttribute("plusSalesTax", plusSalesTax);
+//		model.addAttribute("total", total);
 		model.addAttribute("reservation" , reservation1);
 		return "reservation_details";
 	}
