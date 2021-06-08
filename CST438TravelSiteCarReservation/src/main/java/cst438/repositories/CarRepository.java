@@ -21,17 +21,7 @@ public interface CarRepository extends JpaRepository<Car, Integer>{
 	
 	List<Car> findById(int id);
 	
-	@Query(nativeQuery = true, value = "SELECT * FROM car  WHERE car.city LIKE ?1 AND car.quantity > 0")
+	@Query(nativeQuery = true, value = "SELECT * FROM car  WHERE car.city LIKE ?1")
 	List<Car> findByCity(String city);
 	
-
-	@Transactional
-	@Modifying
-	@Query("UPDATE Car c SET c.quantity = c.quantity - 1 WHERE c.id = ?1")
-	void reserveCar(int id);
-	
-	@Transactional
-	@Modifying
-	@Query("UPDATE Car c SET c.quantity = c.quantity + 1 WHERE c.id = ?1")
-	void cancelCar(int id);
 }

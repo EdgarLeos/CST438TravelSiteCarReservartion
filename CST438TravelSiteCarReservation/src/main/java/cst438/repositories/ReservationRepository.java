@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-
 import cst438.domain.Reservation;
 
 
@@ -18,6 +17,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	List<Reservation>findById(int id);
 	
 	List<Reservation>findByEmail(String email);
+	
+	@Query(nativeQuery = true, value = "SELECT * FROM reservations WHERE (:date_start <= date_end) and (:date_end >= date_start) AND car_id = :id")
+	List<Reservation>findDateRanges(String date_start, String date_end, int id);
 	
 	@Transactional
 	@Modifying

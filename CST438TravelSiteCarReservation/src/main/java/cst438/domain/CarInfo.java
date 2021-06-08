@@ -15,17 +15,17 @@ public class CarInfo {
 	private String state;
 	private String city;
 	private int quantity;
+	private String image;
 	private double countyTax;
 	private double govFee;
 	private double salesTax;
+	private double total;
 	
 	public CarInfo() {}
 
-
-	
 	public CarInfo(int id, String model, String make, int year, String trany, double cityMPG, double highwayMPG,
-			String carClass, String fuelType, double rentalPrice, String state, String city, int quantity,
-			double countyTax, double govFee, double salesTax) {
+			String carClass, String fuelType, double rentalPrice, String state, String city, int quantity, String image,
+			double countyTax, double govFee, double salesTax, double total) {
 		super();
 		this.id = id;
 		this.model = model;
@@ -40,220 +40,190 @@ public class CarInfo {
 		this.state = state;
 		this.city = city;
 		this.quantity = quantity;
+		this.image = image;
 		this.countyTax = countyTax;
 		this.govFee = govFee;
 		this.salesTax = salesTax;
+		this.total = total;
 	}
-
-
 
 	public int getId() {
 		return id;
 	}
 
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public String getModel() {
 		return model;
 	}
 
-
-
 	public void setModel(String model) {
 		this.model = model;
 	}
-
-
 
 	public String getMake() {
 		return make;
 	}
 
-
-
 	public void setMake(String make) {
 		this.make = make;
 	}
-
-
 
 	public int getYear() {
 		return year;
 	}
 
-
-
 	public void setYear(int year) {
 		this.year = year;
 	}
-
-
 
 	public String getTrany() {
 		return trany;
 	}
 
-
-
 	public void setTrany(String trany) {
 		this.trany = trany;
 	}
-
-
 
 	public double getCityMPG() {
 		return cityMPG;
 	}
 
-
-
 	public void setCityMPG(double cityMPG) {
 		this.cityMPG = cityMPG;
 	}
-
-
 
 	public double getHighwayMPG() {
 		return highwayMPG;
 	}
 
-
-
 	public void setHighwayMPG(double highwayMPG) {
 		this.highwayMPG = highwayMPG;
 	}
-
-
 
 	public String getCarClass() {
 		return carClass;
 	}
 
-
-
 	public void setCarClass(String carClass) {
 		this.carClass = carClass;
 	}
-
-
 
 	public String getFuelType() {
 		return fuelType;
 	}
 
-
-
 	public void setFuelType(String fuelType) {
 		this.fuelType = fuelType;
 	}
-
-
 
 	public double getRentalPrice() {
 		return rentalPrice;
 	}
 
-
-
 	public void setRentalPrice(double rentalPrice) {
 		this.rentalPrice = rentalPrice;
 	}
-
-
 
 	public String getState() {
 		return state;
 	}
 
-
-
 	public void setState(String state) {
 		this.state = state;
 	}
-
-
 
 	public String getCity() {
 		return city;
 	}
 
-
-
 	public void setCity(String city) {
 		this.city = city;
 	}
-
-
 
 	public int getQuantity() {
 		return quantity;
 	}
 
-
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
+	public String getImage() {
+		return image;
+	}
 
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public double getCountyTax() {
 		return countyTax;
 	}
 
-
-
 	public void setCountyTax(double countyTax) {
 		this.countyTax = countyTax;
 	}
-
-
 
 	public double getGovFee() {
 		return govFee;
 	}
 
-
-
 	public void setGovFee(double govFee) {
 		this.govFee = govFee;
 	}
-
-
 
 	public double getSalesTax() {
 		return salesTax;
 	}
 
-
-
 	public void setSalesTax(double salesTax) {
 		this.salesTax = salesTax;
 	}
 
+	public double getTotal() {
+		return total;
+	}
 
-	public double getCountyTaxTotal(double price) {
-		return price * this.countyTax;
+	public void setTotal(double total) {
+		this.total = total;
 	}
-	
-	public double getGovFeeTotal(double price) {
-		return price * this.govFee;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((carClass == null) ? 0 : carClass.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(cityMPG);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(countyTax);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((fuelType == null) ? 0 : fuelType.hashCode());
+		temp = Double.doubleToLongBits(govFee);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(highwayMPG);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + id;
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result + ((make == null) ? 0 : make.hashCode());
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		result = prime * result + quantity;
+		temp = Double.doubleToLongBits(rentalPrice);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(salesTax);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		temp = Double.doubleToLongBits(total);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((trany == null) ? 0 : trany.hashCode());
+		result = prime * result + year;
+		return result;
 	}
-	
-	public double getSalesTaxTotal(double price) {
-		return price * this.salesTax;
-	}
-	
-	public double getTotal(double price) {
-		return this.rentalPrice + getCountyTaxTotal(price) + getGovFeeTotal(price) + getSalesTaxTotal(price);
-	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -288,6 +258,11 @@ public class CarInfo {
 			return false;
 		if (id != other.id)
 			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
+			return false;
 		if (make == null) {
 			if (other.make != null)
 				return false;
@@ -309,6 +284,8 @@ public class CarInfo {
 				return false;
 		} else if (!state.equals(other.state))
 			return false;
+		if (Double.doubleToLongBits(total) != Double.doubleToLongBits(other.total))
+			return false;
 		if (trany == null) {
 			if (other.trany != null)
 				return false;
@@ -324,9 +301,9 @@ public class CarInfo {
 		return "CarInfo [id=" + id + ", model=" + model + ", make=" + make + ", year=" + year + ", trany=" + trany
 				+ ", cityMPG=" + cityMPG + ", highwayMPG=" + highwayMPG + ", carClass=" + carClass + ", fuelType="
 				+ fuelType + ", rentalPrice=" + rentalPrice + ", state=" + state + ", city=" + city + ", quantity="
-				+ quantity + ", countyTax=" + countyTax + ", govFee=" + govFee + ", salesTax=" + salesTax + "]";
+				+ quantity + ", image=" + image + ", countyTax=" + countyTax + ", govFee=" + govFee + ", salesTax="
+				+ salesTax + ", total=" + total + "]";
 	}
-	
-	
+
 	
 }

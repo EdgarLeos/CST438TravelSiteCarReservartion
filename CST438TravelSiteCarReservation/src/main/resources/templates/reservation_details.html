@@ -46,18 +46,18 @@
 		</tr>
 		<tr>
 			<th>County Tax (%2)</th>
-			<td th:text = "${plusCountyTax}" th:name = countyTaxTotal></td>
+			<td th:text = "${car.countyTax}" th:name = countyTaxTotal></td>
 		<tr>
 			<th>Gov Fee (%1)</th>
-			<td th:text = "${plusGovFee}" th:name = govFeeTotal></td>
+			<td th:text = "${car.govFee}" th:name = govFeeTotal></td>
 		</tr>
 		<tr>
 			<th>Sales Tax (%9)</th>
-			<td th:text = "${plusSalesTax}" th:name = salesTaxTotal></td>
+			<td th:text = "${car.salesTax}" th:name = salesTaxTotal></td>
 		</tr>
 		<tr>
 			<th>Total</th>
-			<td th:text = "${total}" th:name = total></td>
+			<td th:text = "${car.total}" th:name = total></td>
 		</tr>
 	</table>
 	 <a th:href="@{'/carrental/deleteReservation/'+${reservation.id}}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>

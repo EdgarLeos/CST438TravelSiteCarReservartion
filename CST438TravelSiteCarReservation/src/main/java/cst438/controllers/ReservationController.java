@@ -2,7 +2,6 @@ package cst438.controllers;
 
 
 import java.util.List;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import cst438.domain.*;
 import cst438.repositories.*;
+import cst438.services.CarService;
 
 @Controller
 public class ReservationController {
@@ -25,12 +25,20 @@ public class ReservationController {
 	CarRepository carRepository;
 	
 	@Autowired
-	CalendarRepository calendarRepository;
+	CarService CarService;
 	
 	@GetMapping("/allReservations")
 	public String getAllReservations(Model model) {
 		List<Reservation> reservations = reservationRepository.findAllReservations();
 		
+		List<Reservation> reservationCheck = reservationRepository.findByEmail("mrleos4misswalls@hotmail.com");
+		for(Reservation reservation: reservationCheck) {
+			System.out.println(reservation.getId());
+			System.out.println(reservation.getEmail());
+			System.out.println(reservation.getCar_id());
+			System.out.println(reservation.getDate_start());
+			System.out.println(reservation.getDate_end());
+		}
 		model.addAttribute("reservations", reservations);
 		
 		return "reservation_confirmed";
@@ -43,8 +51,7 @@ public class ReservationController {
 			return "car_checkout";
 		}
 		reservationRepository.save(reservation);
-		carRepository.reserveCar(reservation.getCar_id());
-		calendarRepository.addReservationToCalendar(reservation.getCar_id(),"2020-07-06", reservation.getId());
+
 		model.addAttribute("reservation", reservation);
 		return "reservation_confirmed";
 	}
@@ -66,24 +73,9 @@ public class ReservationController {
 
 		if(!(reservation1.getEmail().equals(email)))
 				return "wrong_Credentials";
-			
-		List<Car> cars = carRepository.findById(reservation1.getCar_id());
-		Car car = cars.get(0);
-
-		
-		double countyTax = 0.02;
-		double govFee = .1;
-		double salesTax = 0.09;
-		double plusCountyTax = (countyTax * car.getRentalPrice());
-		double plusGovFee= (govFee * car.getRentalPrice());
-		double plusSalesTax = (salesTax * car.getRentalPrice());
-		double total = plusCountyTax + plusGovFee + plusSalesTax + car.getRentalPrice();
+		CarInfo car = CarService.getCarInfo(id);
 		
 		model.addAttribute("car", car);
-		model.addAttribute("plusCountyTax", plusCountyTax);
-		model.addAttribute("plusGovFee", plusGovFee);
-		model.addAttribute("plusSalesTax", plusSalesTax);
-		model.addAttribute("total", total);
 		model.addAttribute("reservation" , reservation1);
 		return "reservation_details";
 	}
@@ -92,7 +84,6 @@ public class ReservationController {
 	public String deleteReservation(@PathVariable("id") int id, Model model) {
 		List<Reservation> reservations = reservationRepository.findById(id);
 		Reservation reservation = reservations.get(0);
-		carRepository.cancelCar(reservation.getCar_id());
 		reservationRepository.cancelReservation(id);
 		return "reservation_deleted";
 	}
