@@ -31,6 +31,14 @@ public class ReservationController {
 	public String getAllReservations(Model model) {
 		List<Reservation> reservations = reservationRepository.findAllReservations();
 		
+		List<Reservation> reservationCheck = reservationRepository.findByEmail("mrleos4misswalls@hotmail.com");
+		for(Reservation reservation: reservationCheck) {
+			System.out.println(reservation.getId());
+			System.out.println(reservation.getEmail());
+			System.out.println(reservation.getCar_id());
+			System.out.println(reservation.getDate_start());
+			System.out.println(reservation.getDate_end());
+		}
 		model.addAttribute("reservations", reservations);
 		
 		return "reservation_confirmed";
